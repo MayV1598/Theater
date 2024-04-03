@@ -18,3 +18,8 @@ select,
 textarea {
     max-width: 280px;
 }
+
+.table-color {
+    background-color: #16743837;
+    border-radius: 7px;
+}
