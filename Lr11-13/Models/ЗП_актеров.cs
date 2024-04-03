@@ -20,6 +20,12 @@ namespace Lr11_13.Models
         public int Премия { get; set; }
         public int Надбавка { get; set; }
         public int Итог { get; set; }
+
+        public int ИтоговаяСумма { get
+            {
+                return Премия + Надбавка + Контракты.Выплаты_в_месяц;
+            } 
+        }
     
         public virtual Контракты Контракты { get; set; }
     }
