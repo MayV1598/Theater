@@ -1,0 +1,63 @@
+﻿@model Lr11_13.Models.Контракты
+
+@{
+    ViewBag.Title = "Delete";
+}
+
+<h2>Удаление</h2>
+
+<div>
+    <h4>Контракты</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            ФИО
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Актеры.Сотрудники.ФИО)
+        </dd>
+
+        <dt>
+            Дата заключения контракта
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Дата_заключения_контракта)
+        </dd>
+
+        <dt>
+            Название постановки
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Название_постановки)
+        </dd>
+
+        <dt>
+            Дата окончания контракта
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Дата_окончания_контракта)
+        </dd>
+
+        <dt>
+            Выплаты в месяц
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Выплаты_в_месяц)
+        </dd>
+
+    </dl>
+
+    @using (Html.BeginForm()) {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Удалить" class="btn btn-default" /> |
+            @Html.ActionLink("Вернуться к списку", "Index")
+        </div>
+    }
+</div>

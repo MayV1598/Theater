@@ -1,0 +1,520 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="Хранилище TheaterModel" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Актеры">
+          <Key>
+            <PropertyRef Name="id сотрудника" />
+          </Key>
+          <Property Name="id сотрудника" Type="int" Nullable="false" />
+          <Property Name="Стаж работы" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="Последняя постановка" Type="nvarchar" MaxLength="150" />
+        </EntityType>
+        <EntityType Name="Афиша">
+          <Key>
+            <PropertyRef Name="id афиши" />
+          </Key>
+          <Property Name="id афиши" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="id постановки" Type="int" Nullable="false" />
+          <Property Name="Кол-во билетов" Type="int" Nullable="false" />
+          <Property Name="id главной роли" Type="int" Nullable="false" />
+          <Property Name="Цена билета" Type="int" Nullable="false" />
+          <Property Name="Дата и время проведения" Type="datetime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="ЗП актеров">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="id контракта" Type="int" Nullable="false" />
+          <Property Name="Месяц" Type="int" Nullable="false" />
+          <Property Name="Премия" Type="int" Nullable="false" />
+          <Property Name="Надбавка" Type="int" Nullable="false" />
+          <Property Name="Итог" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Контракты">
+          <Key>
+            <PropertyRef Name="id контракта" />
+          </Key>
+          <Property Name="id контракта" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="id актера" Type="int" Nullable="false" />
+          <Property Name="Дата заключения контракта" Type="date" Nullable="false" />
+          <Property Name="Название постановки" Type="nvarchar" MaxLength="150" Nullable="false" />
+          <Property Name="Дата окончания контракта" Type="date" Nullable="false" />
+          <Property Name="Выплаты в месяц" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Постановка">
+          <Key>
+            <PropertyRef Name="id постановки" />
+          </Key>
+          <Property Name="id постановки" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Название постановки" Type="nvarchar" MaxLength="150" Nullable="false" />
+          <Property Name="Описание" Type="nvarchar" MaxLength="1000" Nullable="false" />
+          <Property Name="Длительность постановки" Type="nvarchar" MaxLength="15" Nullable="false" />
+          <Property Name="Постер" Type="image" />
+        </EntityType>
+        <EntityType Name="Роли актеров">
+          <Key>
+            <PropertyRef Name="id роли" />
+          </Key>
+          <Property Name="id роли" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Название роли" Type="nvarchar" MaxLength="150" Nullable="false" />
+          <Property Name="id актера" Type="int" Nullable="false" />
+          <Property Name="id постановки" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Сотрудники">
+          <Key>
+            <PropertyRef Name="id сотрудника" />
+          </Key>
+          <Property Name="id сотрудника" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ФИО" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="Дата рождения" Type="date" Nullable="false" />
+          <Property Name="Номер телефона" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Должность" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Логин" Type="nvarchar" MaxLength="50" />
+          <Property Name="Пароль" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <Association Name="id актера">
+          <End Role="Актеры" Type="Self.Актеры" Multiplicity="1" />
+          <End Role="Контракты" Type="Self.Контракты" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Актеры">
+              <PropertyRef Name="id сотрудника" />
+            </Principal>
+            <Dependent Role="Контракты">
+              <PropertyRef Name="id актера" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="id актера_">
+          <End Role="Актеры" Type="Self.Актеры" Multiplicity="1" />
+          <End Role="Роли актеров" Type="Self.Роли актеров" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Актеры">
+              <PropertyRef Name="id сотрудника" />
+            </Principal>
+            <Dependent Role="Роли актеров">
+              <PropertyRef Name="id актера" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="id главной роли">
+          <End Role="Роли актеров" Type="Self.Роли актеров" Multiplicity="1" />
+          <End Role="Афиша" Type="Self.Афиша" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Роли актеров">
+              <PropertyRef Name="id роли" />
+            </Principal>
+            <Dependent Role="Афиша">
+              <PropertyRef Name="id главной роли" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="id постановки">
+          <End Role="Постановка" Type="Self.Постановка" Multiplicity="1" />
+          <End Role="Афиша" Type="Self.Афиша" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Постановка">
+              <PropertyRef Name="id постановки" />
+            </Principal>
+            <Dependent Role="Афиша">
+              <PropertyRef Name="id постановки" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="id постановки_">
+          <End Role="Постановка" Type="Self.Постановка" Multiplicity="1" />
+          <End Role="Роли актеров" Type="Self.Роли актеров" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Постановка">
+              <PropertyRef Name="id постановки" />
+            </Principal>
+            <Dependent Role="Роли актеров">
+              <PropertyRef Name="id постановки" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="Актеры_Сотрудники">
+          <End Role="Сотрудники" Type="Self.Сотрудники" Multiplicity="1" />
+          <End Role="Актеры" Type="Self.Актеры" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="Сотрудники">
+              <PropertyRef Name="id сотрудника" />
+            </Principal>
+            <Dependent Role="Актеры">
+              <PropertyRef Name="id сотрудника" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="ЗП_Контракты">
+          <End Role="Контракты" Type="Self.Контракты" Multiplicity="1" />
+          <End Role="ЗП актеров" Type="Self.ЗП актеров" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Контракты">
+              <PropertyRef Name="id контракта" />
+            </Principal>
+            <Dependent Role="ЗП актеров">
+              <PropertyRef Name="id контракта" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="Хранилище TheaterModelContainer">
+          <EntitySet Name="Актеры" EntityType="Self.Актеры" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Афиша" EntityType="Self.Афиша" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ЗП актеров" EntityType="Self.ЗП актеров" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Контракты" EntityType="Self.Контракты" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Постановка" EntityType="Self.Постановка" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Роли актеров" EntityType="Self.Роли актеров" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Сотрудники" EntityType="Self.Сотрудники" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="id актера" Association="Self.id актера">
+            <End Role="Актеры" EntitySet="Актеры" />
+            <End Role="Контракты" EntitySet="Контракты" />
+          </AssociationSet>
+          <AssociationSet Name="id актера_" Association="Self.id актера_">
+            <End Role="Актеры" EntitySet="Актеры" />
+            <End Role="Роли актеров" EntitySet="Роли актеров" />
+          </AssociationSet>
+          <AssociationSet Name="id главной роли" Association="Self.id главной роли">
+            <End Role="Роли актеров" EntitySet="Роли актеров" />
+            <End Role="Афиша" EntitySet="Афиша" />
+          </AssociationSet>
+          <AssociationSet Name="id постановки" Association="Self.id постановки">
+            <End Role="Постановка" EntitySet="Постановка" />
+            <End Role="Афиша" EntitySet="Афиша" />
+          </AssociationSet>
+          <AssociationSet Name="id постановки_" Association="Self.id постановки_">
+            <End Role="Постановка" EntitySet="Постановка" />
+            <End Role="Роли актеров" EntitySet="Роли актеров" />
+          </AssociationSet>
+          <AssociationSet Name="Актеры_Сотрудники" Association="Self.Актеры_Сотрудники">
+            <End Role="Сотрудники" EntitySet="Сотрудники" />
+            <End Role="Актеры" EntitySet="Актеры" />
+          </AssociationSet>
+          <AssociationSet Name="ЗП_Контракты" Association="Self.ЗП_Контракты">
+            <End Role="Контракты" EntitySet="Контракты" />
+            <End Role="ЗП актеров" EntitySet="ЗП актеров" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="TheaterModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Актеры">
+          <Key>
+            <PropertyRef Name="id_сотрудника" />
+          </Key>
+          <Property Name="id_сотрудника" Type="Int32" Nullable="false" />
+          <Property Name="Стаж_работы" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Последняя_постановка" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Контракты" Relationship="Self.id_актера" FromRole="Актеры" ToRole="Контракты" />
+          <NavigationProperty Name="Роли_актеров" Relationship="Self.id_актера_" FromRole="Актеры" ToRole="Роли_актеров" />
+          <NavigationProperty Name="Сотрудники" Relationship="Self.Актеры_Сотрудники" FromRole="Актеры" ToRole="Сотрудники" />
+        </EntityType>
+        <EntityType Name="Афиша">
+          <Key>
+            <PropertyRef Name="id_афиши" />
+          </Key>
+          <Property Name="id_афиши" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="id_постановки" Type="Int32" Nullable="false" />
+          <Property Name="Кол_во_билетов" Type="Int32" Nullable="false" />
+          <Property Name="id_главной_роли" Type="Int32" Nullable="false" />
+          <Property Name="Цена_билета" Type="Int32" Nullable="false" />
+          <Property Name="Дата_и_время_проведения" Type="DateTime" Nullable="false" Precision="3" />
+          <NavigationProperty Name="Роли_актеров" Relationship="Self.id_главной_роли" FromRole="Афиша" ToRole="Роли_актеров" />
+          <NavigationProperty Name="Постановка" Relationship="Self.id_постановки" FromRole="Афиша" ToRole="Постановка" />
+        </EntityType>
+        <EntityType Name="ЗП_актеров">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="id_контракта" Type="Int32" Nullable="false" />
+          <Property Name="Месяц" Type="Int32" Nullable="false" />
+          <Property Name="Премия" Type="Int32" Nullable="false" />
+          <Property Name="Надбавка" Type="Int32" Nullable="false" />
+          <Property Name="Итог" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Контракты" Relationship="Self.ЗП_Контракты" FromRole="ЗП_актеров" ToRole="Контракты" />
+        </EntityType>
+        <EntityType Name="Контракты">
+          <Key>
+            <PropertyRef Name="id_контракта" />
+          </Key>
+          <Property Name="id_контракта" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="id_актера" Type="Int32" Nullable="false" />
+          <Property Name="Дата_заключения_контракта" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="Название_постановки" Type="String" MaxLength="150" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Дата_окончания_контракта" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="Выплаты_в_месяц" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Актеры" Relationship="Self.id_актера" FromRole="Контракты" ToRole="Актеры" />
+          <NavigationProperty Name="ЗП_актеров" Relationship="Self.ЗП_Контракты" FromRole="Контракты" ToRole="ЗП_актеров" />
+        </EntityType>
+        <EntityType Name="Постановка">
+          <Key>
+            <PropertyRef Name="id_постановки" />
+          </Key>
+          <Property Name="id_постановки" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Название_постановки" Type="String" MaxLength="150" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Описание" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Длительность_постановки" Type="String" MaxLength="15" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="Афиша" Relationship="Self.id_постановки" FromRole="Постановка" ToRole="Афиша" />
+          <NavigationProperty Name="Роли_актеров" Relationship="Self.id_постановки_" FromRole="Постановка" ToRole="Роли_актеров" />
+          <Property Name="Постер" Type="Binary" MaxLength="Max" FixedLength="false" />
+        </EntityType>
+        <EntityType Name="Роли_актеров">
+          <Key>
+            <PropertyRef Name="id_роли" />
+          </Key>
+          <Property Name="id_роли" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Название_роли" Type="String" MaxLength="150" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="id_актера" Type="Int32" Nullable="false" />
+          <Property Name="id_постановки" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Актеры" Relationship="Self.id_актера_" FromRole="Роли_актеров" ToRole="Актеры" />
+          <NavigationProperty Name="Афиша" Relationship="Self.id_главной_роли" FromRole="Роли_актеров" ToRole="Афиша" />
+          <NavigationProperty Name="Постановка" Relationship="Self.id_постановки_" FromRole="Роли_актеров" ToRole="Постановка" />
+        </EntityType>
+        <EntityType Name="Сотрудники">
+          <Key>
+            <PropertyRef Name="id_сотрудника" />
+          </Key>
+          <Property Name="id_сотрудника" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ФИО" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Дата_рождения" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="Номер_телефона" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Должность" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Логин" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Пароль" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Актеры" Relationship="Self.Актеры_Сотрудники" FromRole="Сотрудники" ToRole="Актеры" />
+        </EntityType>
+        <Association Name="id_актера">
+          <End Role="Актеры" Type="Self.Актеры" Multiplicity="1" />
+          <End Role="Контракты" Type="Self.Контракты" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Актеры">
+              <PropertyRef Name="id_сотрудника" />
+            </Principal>
+            <Dependent Role="Контракты">
+              <PropertyRef Name="id_актера" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="id_актера_">
+          <End Role="Актеры" Type="Self.Актеры" Multiplicity="1" />
+          <End Role="Роли_актеров" Type="Self.Роли_актеров" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Актеры">
+              <PropertyRef Name="id_сотрудника" />
+            </Principal>
+            <Dependent Role="Роли_актеров">
+              <PropertyRef Name="id_актера" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="Актеры_Сотрудники">
+          <End Role="Сотрудники" Type="Self.Сотрудники" Multiplicity="1" />
+          <End Role="Актеры" Type="Self.Актеры" Multiplicity="1" />
+          <ReferentialConstraint>
+            <Principal Role="Сотрудники">
+              <PropertyRef Name="id_сотрудника" />
+            </Principal>
+            <Dependent Role="Актеры">
+              <PropertyRef Name="id_сотрудника" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="id_главной_роли">
+          <End Role="Роли_актеров" Type="Self.Роли_актеров" Multiplicity="1" />
+          <End Role="Афиша" Type="Self.Афиша" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Роли_актеров">
+              <PropertyRef Name="id_роли" />
+            </Principal>
+            <Dependent Role="Афиша">
+              <PropertyRef Name="id_главной_роли" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="id_постановки">
+          <End Role="Постановка" Type="Self.Постановка" Multiplicity="1" />
+          <End Role="Афиша" Type="Self.Афиша" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Постановка">
+              <PropertyRef Name="id_постановки" />
+            </Principal>
+            <Dependent Role="Афиша">
+              <PropertyRef Name="id_постановки" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="ЗП_Контракты">
+          <End Role="Контракты" Type="Self.Контракты" Multiplicity="1" />
+          <End Role="ЗП_актеров" Type="Self.ЗП_актеров" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Контракты">
+              <PropertyRef Name="id_контракта" />
+            </Principal>
+            <Dependent Role="ЗП_актеров">
+              <PropertyRef Name="id_контракта" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="id_постановки_">
+          <End Role="Постановка" Type="Self.Постановка" Multiplicity="1" />
+          <End Role="Роли_актеров" Type="Self.Роли_актеров" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Постановка">
+              <PropertyRef Name="id_постановки" />
+            </Principal>
+            <Dependent Role="Роли_актеров">
+              <PropertyRef Name="id_постановки" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="TheaterEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Актеры" EntityType="Self.Актеры" />
+          <EntitySet Name="Афиша" EntityType="Self.Афиша" />
+          <EntitySet Name="ЗП_актеров" EntityType="Self.ЗП_актеров" />
+          <EntitySet Name="Контракты" EntityType="Self.Контракты" />
+          <EntitySet Name="Постановка" EntityType="Self.Постановка" />
+          <EntitySet Name="Роли_актеров" EntityType="Self.Роли_актеров" />
+          <EntitySet Name="Сотрудники" EntityType="Self.Сотрудники" />
+          <AssociationSet Name="id_актера" Association="Self.id_актера">
+            <End Role="Актеры" EntitySet="Актеры" />
+            <End Role="Контракты" EntitySet="Контракты" />
+          </AssociationSet>
+          <AssociationSet Name="id_актера_" Association="Self.id_актера_">
+            <End Role="Актеры" EntitySet="Актеры" />
+            <End Role="Роли_актеров" EntitySet="Роли_актеров" />
+          </AssociationSet>
+          <AssociationSet Name="Актеры_Сотрудники" Association="Self.Актеры_Сотрудники">
+            <End Role="Сотрудники" EntitySet="Сотрудники" />
+            <End Role="Актеры" EntitySet="Актеры" />
+          </AssociationSet>
+          <AssociationSet Name="id_главной_роли" Association="Self.id_главной_роли">
+            <End Role="Роли_актеров" EntitySet="Роли_актеров" />
+            <End Role="Афиша" EntitySet="Афиша" />
+          </AssociationSet>
+          <AssociationSet Name="id_постановки" Association="Self.id_постановки">
+            <End Role="Постановка" EntitySet="Постановка" />
+            <End Role="Афиша" EntitySet="Афиша" />
+          </AssociationSet>
+          <AssociationSet Name="ЗП_Контракты" Association="Self.ЗП_Контракты">
+            <End Role="Контракты" EntitySet="Контракты" />
+            <End Role="ЗП_актеров" EntitySet="ЗП_актеров" />
+          </AssociationSet>
+          <AssociationSet Name="id_постановки_" Association="Self.id_постановки_">
+            <End Role="Постановка" EntitySet="Постановка" />
+            <End Role="Роли_актеров" EntitySet="Роли_актеров" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="Хранилище TheaterModelContainer" CdmEntityContainer="TheaterEntities">
+          <EntitySetMapping Name="Актеры">
+            <EntityTypeMapping TypeName="TheaterModel.Актеры">
+              <MappingFragment StoreEntitySet="Актеры">
+                <ScalarProperty Name="id_сотрудника" ColumnName="id сотрудника" />
+                <ScalarProperty Name="Стаж_работы" ColumnName="Стаж работы" />
+                <ScalarProperty Name="Последняя_постановка" ColumnName="Последняя постановка" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Афиша">
+            <EntityTypeMapping TypeName="TheaterModel.Афиша">
+              <MappingFragment StoreEntitySet="Афиша">
+                <ScalarProperty Name="id_афиши" ColumnName="id афиши" />
+                <ScalarProperty Name="id_постановки" ColumnName="id постановки" />
+                <ScalarProperty Name="Кол_во_билетов" ColumnName="Кол-во билетов" />
+                <ScalarProperty Name="id_главной_роли" ColumnName="id главной роли" />
+                <ScalarProperty Name="Цена_билета" ColumnName="Цена билета" />
+                <ScalarProperty Name="Дата_и_время_проведения" ColumnName="Дата и время проведения" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ЗП_актеров">
+            <EntityTypeMapping TypeName="TheaterModel.ЗП_актеров">
+              <MappingFragment StoreEntitySet="ЗП актеров">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="id_контракта" ColumnName="id контракта" />
+                <ScalarProperty Name="Месяц" ColumnName="Месяц" />
+                <ScalarProperty Name="Премия" ColumnName="Премия" />
+                <ScalarProperty Name="Надбавка" ColumnName="Надбавка" />
+                <ScalarProperty Name="Итог" ColumnName="Итог" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Контракты">
+            <EntityTypeMapping TypeName="TheaterModel.Контракты">
+              <MappingFragment StoreEntitySet="Контракты">
+                <ScalarProperty Name="id_контракта" ColumnName="id контракта" />
+                <ScalarProperty Name="id_актера" ColumnName="id актера" />
+                <ScalarProperty Name="Дата_заключения_контракта" ColumnName="Дата заключения контракта" />
+                <ScalarProperty Name="Название_постановки" ColumnName="Название постановки" />
+                <ScalarProperty Name="Дата_окончания_контракта" ColumnName="Дата окончания контракта" />
+                <ScalarProperty Name="Выплаты_в_месяц" ColumnName="Выплаты в месяц" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Постановка">
+            <EntityTypeMapping TypeName="TheaterModel.Постановка">
+              <MappingFragment StoreEntitySet="Постановка">
+                <ScalarProperty Name="Постер" ColumnName="Постер" />
+                <ScalarProperty Name="id_постановки" ColumnName="id постановки" />
+                <ScalarProperty Name="Название_постановки" ColumnName="Название постановки" />
+                <ScalarProperty Name="Описание" ColumnName="Описание" />
+                <ScalarProperty Name="Длительность_постановки" ColumnName="Длительность постановки" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Роли_актеров">
+            <EntityTypeMapping TypeName="TheaterModel.Роли_актеров">
+              <MappingFragment StoreEntitySet="Роли актеров">
+                <ScalarProperty Name="id_роли" ColumnName="id роли" />
+                <ScalarProperty Name="Название_роли" ColumnName="Название роли" />
+                <ScalarProperty Name="id_актера" ColumnName="id актера" />
+                <ScalarProperty Name="id_постановки" ColumnName="id постановки" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Сотрудники">
+            <EntityTypeMapping TypeName="TheaterModel.Сотрудники">
+              <MappingFragment StoreEntitySet="Сотрудники">
+                <ScalarProperty Name="id_сотрудника" ColumnName="id сотрудника" />
+                <ScalarProperty Name="ФИО" ColumnName="ФИО" />
+                <ScalarProperty Name="Дата_рождения" ColumnName="Дата рождения" />
+                <ScalarProperty Name="Номер_телефона" ColumnName="Номер телефона" />
+                <ScalarProperty Name="Должность" ColumnName="Должность" />
+                <ScalarProperty Name="Логин" ColumnName="Логин" />
+                <ScalarProperty Name="Пароль" ColumnName="Пароль" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Нет" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

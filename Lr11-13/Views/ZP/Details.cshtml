@@ -1,0 +1,58 @@
+﻿@model Lr11_13.Models.ЗП_актеров
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Детали</h2>
+
+<div>
+    <h4>ЗП актеров</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            Название постановки
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Контракты.Название_постановки)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Месяц)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Месяц)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Премия)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Премия)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Надбавка)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Надбавка)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Итог)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Итог)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Редактировать", "Edit", new { id = Model.id }) |
+    @Html.ActionLink("Вернуться к списку", "Index")
+</p>

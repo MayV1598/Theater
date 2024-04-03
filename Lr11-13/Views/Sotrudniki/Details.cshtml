@@ -1,0 +1,66 @@
+﻿@model Lr11_13.Models.Сотрудники
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Детали</h2>
+
+<div>
+    <h4>Сотрудники</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.ФИО)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ФИО)
+        </dd>
+
+        <dt>
+            Дата рождения
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Дата_рождения)
+        </dd>
+
+        <dt>
+            Номер телефона
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Номер_телефона)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Должность)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Должность)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Логин)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Логин)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Пароль)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Пароль)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Редактировать", "Edit", new { id = Model.id_сотрудника }) |
+    @Html.ActionLink("Вернуться к списку", "Index")
+</p>

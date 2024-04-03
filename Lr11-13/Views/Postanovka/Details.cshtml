@@ -1,0 +1,61 @@
+﻿@model Lr11_13.Models.Постановка
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Детали</h2>
+
+<div>
+    <h4>Постановка</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            Название постановки
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Название_постановки)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Описание)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Описание)
+        </dd>
+
+        <dt>
+            Длительность постановки
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Длительность_постановки)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Постер)
+        </dt>
+
+        <dd>
+            @{byte[] photo = Model.Постер;
+                string imageSrc = null;
+                if(photo != null)
+                {
+                    MemoryStream ms = new MemoryStream();
+                    ms.Write(photo,0,photo.Length);
+                    string imageBase64 = Convert.ToBase64String(ms.ToArray());
+                    imageSrc = string.Format("data:image/jpg;base64,{0}",imageBase64);
+                    string base64String = Convert.ToBase64String(photo,0,photo.Length);
+                }
+            }
+
+            <img width="150" height="200" src="@imageSrc" />
+        </dd>
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Редактировать", "Edit", new { id = Model.id_постановки }) |
+    @Html.ActionLink("Вернуться к списку", "Index")
+</p>

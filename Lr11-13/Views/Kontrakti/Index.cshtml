@@ -1,0 +1,67 @@
+﻿@model IEnumerable<Lr11_13.Models.Контракты>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Контракты</h2>
+
+<p>
+    @Html.ActionLink("Добавить запись","Create")
+</p>
+
+@using(Html.BeginForm())
+{
+    <p>
+        ФИО: @Html.TextBox("SearchString")
+        <input type="submit" value="Поиск" class="btn btn-outline-dark m-auto ms-lg-1" />
+    </p>
+}
+
+<table class="table">
+    <tr>
+        <th>
+            ФИО
+        </th>
+        <th>
+            Дата заключения контракта
+        </th>
+        <th>
+            Название постановки
+        </th>
+        <th>
+            Дата окончания контракта
+        </th>
+        <th>
+            Выплаты в месяц
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach(var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Актеры.Сотрудники.ФИО)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Data)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Название_постановки)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Data1)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Выплаты_в_месяц)
+            </td>
+            <td>
+                @Html.ActionLink("Редактировать","Edit",new { id = item.id_контракта }) |
+                @Html.ActionLink("Детали","Details",new { id = item.id_контракта }) |
+                @Html.ActionLink("Удалить","Delete",new { id = item.id_контракта })
+            </td>
+        </tr>
+    }
+
+</table>

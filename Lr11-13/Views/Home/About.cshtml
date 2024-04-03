@@ -1,0 +1,69 @@
+﻿@model IEnumerable<Lr11_13.Models.Афиша>
+
+@{
+    ViewBag.Title = "Афиша";
+}
+
+@using(Html.BeginForm("About","Home",null,FormMethod.Get))
+{
+    <div class="col-xxl-5 d-flex justify-content-lg-start">
+        <p class="m-auto m-lg-2">С</p>
+        <input type="date" class="form-control m-auto" name="start">
+        <p class="m-auto m-lg-2">По</p>
+        <input type="date" class="form-control m-auto" name="end">
+        <input type="submit" value="Обновить" class="btn btn-outline-dark m-auto ms-lg-1" />
+    </div>
+}
+
+@foreach(var item in Model)
+{
+    <hr />
+    <div class="row">
+        <section class="col-md-4" aria-labelledby="gettingStartedTitle">
+            <h1 id="title">@Html.DisplayFor(modelItem => item.Постановка.Название_постановки)</h1>
+        </section>
+    </div>
+    <div class="row">
+        <section class="col-md-2" aria-labelledby="gettingStartedTitle">
+            <p>
+                @{byte[] photo = item.Постановка.Постер;
+                    string imageSrc = null;
+
+                    if(photo != null)
+                    {
+                        MemoryStream ms = new MemoryStream();
+                        ms.Write(photo,0,photo.Length);
+                        string imageBase64 = Convert.ToBase64String(ms.ToArray());
+                        imageSrc = string.Format("data:image/jpg;base64,{0}",imageBase64);
+                        string base64String = Convert.ToBase64String(photo,0,photo.Length);
+                    }
+                }
+                <img src="@imageSrc" alt="Image" width="150" height="200" />
+            </p>
+        </section>
+        <section class="col-md-1" aria-labelledby="librariesTitle">
+            <h5 id="title">Цена:</h5>
+            <p>
+                @Html.DisplayFor(modelItem => item.Цена_билета)
+            </p>
+        </section>
+        <section class="col-md-1" aria-labelledby="hostingTitle">
+            <h5 id="title">Дата и время:</h5>
+            <p>
+                @Html.DisplayFor(modelItem => item.Дата_и_время_проведения)
+            </p>
+        </section>
+        <section class="col-md-6" aria-labelledby="hostingTitle">
+            <h5 id="title">Описание:</h5>
+            <p>
+                @Html.DisplayFor(modelItem => item.Постановка.Описание)
+            </p>
+        </section>
+        <section class="col-md-2" aria-labelledby="hostingTitle">
+            <h5 id="title">Актер главной роли:</h5>
+            <p>
+                @Html.DisplayFor(modelItem => item.Роли_актеров.Актеры.Сотрудники.ФИО)
+            </p>
+        </section>
+    </div>
+}

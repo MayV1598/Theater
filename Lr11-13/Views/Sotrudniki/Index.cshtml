@@ -1,0 +1,70 @@
+﻿@model IEnumerable<Lr11_13.Models.Сотрудники>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Сотрудники</h2>
+
+<p>
+    @Html.ActionLink("Добавить запись", "Create")
+</p>
+@using (Html.BeginForm())
+            {
+                <p>
+                    ФИО: @Html.TextBox("SearchString")
+                    <input type="submit" value="Поиск" class="btn btn-outline-dark m-auto ms-lg-1"/>
+                </p>
+            }
+<table class="table">
+    <tr>
+        <th>
+            @Html.ActionLink("ФИО", "Index", new {sortOrder = ViewBag.NameSortParm})
+        </th>
+        <th>
+            @Html.ActionLink("Дата рождения","Index",new { sortOrder = ViewBag.DateSortParm })
+        </th>
+        <th>
+            Номер телефона
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Должность)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Логин)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Пароль)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.ФИО)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Date)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Номер_телефона)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Должность)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Логин)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Пароль)
+        </td>
+        <td>
+            @Html.ActionLink("Редактировать", "Edit", new { id=item.id_сотрудника }) |
+            @Html.ActionLink("Детали", "Details", new { id=item.id_сотрудника }) |
+            @Html.ActionLink("Удалить", "Delete", new { id=item.id_сотрудника })
+        </td>
+    </tr>
+}
+
+</table>

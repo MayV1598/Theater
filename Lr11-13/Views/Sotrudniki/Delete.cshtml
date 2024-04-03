@@ -1,0 +1,71 @@
+﻿@model Lr11_13.Models.Сотрудники
+
+@{
+    ViewBag.Title = "Delete";
+}
+
+<h2>Удаление</h2>
+
+<div>
+    <h4>Сотрудники</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.ФИО)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ФИО)
+        </dd>
+
+        <dt>
+            Дата рождения
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Дата_рождения)
+        </dd>
+
+        <dt>
+            Номер телефона
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Номер_телефона)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Должность)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Должность)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Логин)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Логин)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Пароль)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Пароль)
+        </dd>
+
+    </dl>
+
+    @using (Html.BeginForm()) {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Удалить" class="btn btn-default" /> |
+            @Html.ActionLink("Вернуться к списку", "Index")
+        </div>
+    }
+</div>

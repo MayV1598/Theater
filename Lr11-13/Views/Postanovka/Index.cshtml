@@ -1,0 +1,73 @@
+﻿@model IEnumerable<Lr11_13.Models.Постановка>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Постановки</h2>
+
+<p>
+    @Html.ActionLink("Добавить запись","Create")
+</p>
+
+@using(Html.BeginForm())
+{
+    <p>
+        Название: @Html.TextBox("SearchString")
+        <input type="submit" value="Поиск" class="btn btn-outline-dark m-auto ms-lg-1"/>
+    </p>
+}
+
+<table class="table">
+    <tr>
+        <th>
+            Название постановки
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Описание)
+        </th>
+        <th>
+            Длительность постановки
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Постер)
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach(var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Название_постановки)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Описание)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Длительность_постановки)
+            </td>
+            <td>
+                @{byte[] photo = item.Постер;
+                    string imageSrc = null;
+
+                    if(photo != null)
+                    {
+                        MemoryStream ms = new MemoryStream();
+                        ms.Write(photo,0,photo.Length);
+                        string imageBase64 = Convert.ToBase64String(ms.ToArray());
+                        imageSrc = string.Format("data:image/jpg;base64,{0}",imageBase64);
+                        string base64String = Convert.ToBase64String(photo,0,photo.Length);
+                    }
+                }
+                <img src="@imageSrc" alt="Image" width="150" height="200" />
+            </td>
+            <td>
+                @Html.ActionLink("Редактировать","Edit",new { id = item.id_постановки }) |
+                @Html.ActionLink("Детали","Details",new { id = item.id_постановки }) |
+                @Html.ActionLink("Удалить","Delete",new { id = item.id_постановки })
+            </td>
+        </tr>
+    }
+
+</table>

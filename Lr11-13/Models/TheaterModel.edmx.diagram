@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="62188eb30b5642788d092fbed3fde02b" Name="Diagram1" ZoomLevel="82">
+        <EntityTypeShape EntityType="TheaterModel.Актеры" Width="1.5" PointX="3.75" PointY="7.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="TheaterModel.Афиша" Width="1.5" PointX="3" PointY="2.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="TheaterModel.ЗП_актеров" Width="1.5" PointX="8.25" PointY="7.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="TheaterModel.Контракты" Width="1.5" PointX="6" PointY="7.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="TheaterModel.Постановка" Width="1.5" PointX="0.75" PointY="2.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="TheaterModel.Роли_актеров" Width="1.5" PointX="6" PointY="2.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="TheaterModel.Сотрудники" Width="1.5" PointX="1.5" PointY="7.625" IsExpanded="true" />
+        <AssociationConnector Association="TheaterModel.id_актера" ManuallyRouted="false" />
+        <AssociationConnector Association="TheaterModel.id_актера_" ManuallyRouted="false" />
+        <AssociationConnector Association="TheaterModel.Актеры_Сотрудники" ManuallyRouted="false" />
+        <AssociationConnector Association="TheaterModel.id_главной_роли" ManuallyRouted="false" />
+        <AssociationConnector Association="TheaterModel.id_постановки" ManuallyRouted="false" />
+        <AssociationConnector Association="TheaterModel.ЗП_Контракты" ManuallyRouted="false" />
+        <AssociationConnector Association="TheaterModel.id_постановки_" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

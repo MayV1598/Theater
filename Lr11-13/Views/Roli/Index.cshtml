@@ -1,0 +1,69 @@
+﻿@model IEnumerable<Lr11_13.Models.Роли_актеров>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Роли актеров</h2>
+
+<p>
+    @Html.ActionLink("Добавить запись","Create")
+</p>
+
+@using(Html.BeginForm())
+{
+    <div class="row">
+        <section class="col-md-3" aria-labelledby="hostingTitle">
+            <p>
+                ФИО: @Html.TextBox("SearchString")
+            </p>
+        </section>
+        <section class="col-md-3" aria-labelledby="hostingTitle">
+            <p>
+                Роль: @Html.TextBox("SearchString1")
+            </p>
+        </section>
+        <section class="col-md-3" aria-labelledby="hostingTitle">
+            <p>
+                <input type="submit" value="Поиск" class="btn btn-outline-dark m-auto ms-lg-1"/>
+            </p>
+        </section>
+    </div>
+}
+
+
+<table class="table">
+    <tr>
+        <th>
+            Название роли
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Актеры.Сотрудники.ФИО)
+        </th>
+        <th>
+            Название постановки
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach(var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Название_роли)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Актеры.Сотрудники.ФИО)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Постановка.Название_постановки)
+            </td>
+            <td>
+                @Html.ActionLink("Редактировать","Edit",new { id = item.id_роли }) |
+                @Html.ActionLink("Детали","Details",new { id = item.id_роли }) |
+                @Html.ActionLink("Удалить","Delete",new { id = item.id_роли })
+            </td>
+        </tr>
+    }
+
+</table>

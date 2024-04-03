@@ -1,0 +1,58 @@
+﻿@model Lr11_13.Models.Афиша
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Детали</h2>
+
+<div>
+    <h4>Афиша</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+           Кол-во билетов
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Кол_во_билетов)
+        </dd>
+
+        <dt>
+            Цена билета
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Цена_билета)
+        </dd>
+
+        <dt>
+            Дата и время проведения
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Дата_и_время_проведения)
+        </dd>
+
+        <dt>
+            Актер главной роли
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Роли_актеров.Актеры.Сотрудники.ФИО)
+        </dd>
+
+        <dt>
+            Название постановки
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Постановка.Название_постановки)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Редактировать", "Edit", new { id = Model.id_афиши }) |
+    @Html.ActionLink("Вернуться к списку", "Index")
+</p>

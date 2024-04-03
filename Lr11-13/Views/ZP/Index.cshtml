@@ -1,0 +1,72 @@
+﻿@model IEnumerable<Lr11_13.Models.ЗП_актеров>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>ЗП актеров</h2>
+
+<p>
+    @Html.ActionLink("Добавить запись","Create")
+</p>
+
+@using(Html.BeginForm("Upload","ZP",null,FormMethod.Get,new { enctype = "multipart/form-data" }))
+{
+    <p class="flex-md-grow-1 align-self-end">
+        <input type="submit" value="Выгрузить в файл" class="btn btn-outline-dark" />
+    </p>
+}
+
+<table class="table">
+    <tr>
+        <th>
+            ФИО
+        </th>
+        <th>
+            Название постановки
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Месяц)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Премия)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Надбавка)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Итог)
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach(var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Контракты.Актеры.Сотрудники.ФИО)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Контракты.Название_постановки)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Месяц)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Премия)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Надбавка)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Итог)
+            </td>
+            <td>
+                @Html.ActionLink("Редактировать","Edit",new { id = item.id }) |
+                @Html.ActionLink("Детали","Details",new { id = item.id }) |
+                @Html.ActionLink("Удалить","Delete",new { id = item.id })
+            </td>
+        </tr>
+    }
+
+</table>

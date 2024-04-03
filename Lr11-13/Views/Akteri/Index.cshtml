@@ -1,0 +1,45 @@
+﻿@model IEnumerable<Lr11_13.Models.Актеры>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Актеры</h2>
+
+<p>
+    @Html.ActionLink("Добавить запись", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            ФИО
+        </th>
+        <th>
+            Стаж работы
+        </th>
+        <th>
+            Последняя постановка
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Сотрудники.ФИО)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Стаж_работы)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Последняя_постановка)
+        </td>
+        <td>
+            @Html.ActionLink("Редактировать","Edit",new { id = item.id_сотрудника }) |
+            @Html.ActionLink("Детали","Details",new { id = item.id_сотрудника }) |
+            @Html.ActionLink("Удалить","Delete",new { id = item.id_сотрудника })
+        </td>
+    </tr>
+}
+
+</table>
